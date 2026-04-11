@@ -1385,7 +1385,7 @@ pre code {
     vertical-align: middle;
   }
   .links-of-author a::before {
-    background: #ff269d;
+    background: #a8c1e5;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -2935,4 +2935,38 @@ header.header {
   .pagination {
     margin-bottom: 10px;
   }
+}
+:root {
+  --body-bg-color: #050505;
+  --content-bg-color: #121212;
+  --card-bg-color: #1a1a1a;
+  --text-color: #ddd;
+  --link-color: #00d1b2;
+  --link-hover-color: #ff2d55;
+  --brand-color: #fff;
+  --menu-item-bg-color: #222;
+  --btn-default-bg: #333;
+  --btn-default-color: #eee;
+  --btn-default-border-color: #444;
+}
+.sidebar {
+  background: #121212;
+}
+.sidebar-inner {
+  background: #121212;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #00d1b2;
+}
+.main-inner {
+  background: #121212;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+.highlight {
+  background: #1d1f21 !important;
 }
