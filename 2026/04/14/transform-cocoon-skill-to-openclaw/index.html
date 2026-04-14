@@ -21,18 +21,19 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"lieakks.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="我把 Cocoon AI 的 architecture-diagram-generator 改造成了可直接在 OpenClaw 调用的 skill：输入架构描述 → 输出暗色主题、独立 HTML（内嵌 SVG）的架构图。 原工具 Cocoon AI：architecture-diagram-generator 链接：https:&#x2F;&#x2F;github.com&#x2F;Cocoon-AI&#x2F;architecture">
+    <meta name="description" content="Cocoon AI 开源了一款暗色主题架构图生成器（architecture-diagram-generator），可将自然语言描述的系统架构直接渲染为独立 HTML 文件（内嵌 SVG），无需任何绘图工具。原版为 Claude.ai 专属，本文记录将其迁移到 OpenClaw 环境的过程与结论。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="基于 OpenClaw 改造 Cocoon AI 暗色架构图生成器 Skill">
+<meta property="og:title" content="基于 OpenClaw 改造 Cocoon AI 架构图生成 Skill">
 <meta property="og:url" content="https://lieakks.com/2026/04/14/transform-cocoon-skill-to-openclaw/index.html">
 <meta property="og:site_name" content="Lieakks&#39; Zone">
-<meta property="og:description" content="我把 Cocoon AI 的 architecture-diagram-generator 改造成了可直接在 OpenClaw 调用的 skill：输入架构描述 → 输出暗色主题、独立 HTML（内嵌 SVG）的架构图。 原工具 Cocoon AI：architecture-diagram-generator 链接：https:&#x2F;&#x2F;github.com&#x2F;Cocoon-AI&#x2F;architecture">
+<meta property="og:description" content="Cocoon AI 开源了一款暗色主题架构图生成器（architecture-diagram-generator），可将自然语言描述的系统架构直接渲染为独立 HTML 文件（内嵌 SVG），无需任何绘图工具。原版为 Claude.ai 专属，本文记录将其迁移到 OpenClaw 环境的过程与结论。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-04-14T12:40:00.000Z">
-<meta property="article:modified_time" content="2026-04-14T12:36:40.813Z">
+<meta property="article:modified_time" content="2026-04-14T12:46:07.387Z">
 <meta property="article:author" content="Lieakks">
 <meta property="article:tag" content="Architecture">
 <meta property="article:tag" content="OpenClaw">
+<meta property="article:tag" content="SVG">
 <meta property="article:tag" content="Skill">
 <meta name="twitter:card" content="summary">
 
@@ -40,10 +41,10 @@
 <link rel="canonical" href="https://lieakks.com/2026/04/14/transform-cocoon-skill-to-openclaw/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lieakks.com/2026/04/14/transform-cocoon-skill-to-openclaw/","path":"2026/04/14/transform-cocoon-skill-to-openclaw/","title":"基于 OpenClaw 改造 Cocoon AI 暗色架构图生成器 Skill"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lieakks.com/2026/04/14/transform-cocoon-skill-to-openclaw/","path":"2026/04/14/transform-cocoon-skill-to-openclaw/","title":"基于 OpenClaw 改造 Cocoon AI 架构图生成 Skill"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>基于 OpenClaw 改造 Cocoon AI 暗色架构图生成器 Skill | Lieakks' Zone</title>
+<title>基于 OpenClaw 改造 Cocoon AI 架构图生成 Skill | Lieakks' Zone</title>
   
 
 
@@ -162,7 +163,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%B7%A5%E5%85%B7"><span class="nav-number">1.</span> <span class="nav-text">原工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%94%B9%E9%80%A0%E5%AE%83%EF%BC%88%E6%88%91%E7%94%A8-OpenClaw-%E7%9A%84%E5%8E%9F%E5%9B%A0%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">为什么要改造它（我用 OpenClaw 的原因）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%B9%E9%80%A0%E8%BF%87%E7%A8%8B%EF%BC%88%E5%9F%BA%E4%BA%8E%E7%BB%8F%E9%AA%8C%E7%9A%84%E6%9C%80%E5%B0%8F%E5%8F%AF%E8%A1%8C%E6%94%B9%E5%8A%A8%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">改造过程（基于经验的最小可行改动）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C%EF%BC%88%E5%8F%AF%E9%AA%8C%E8%AF%81%E3%80%81%E5%8F%AF%E5%A4%8D%E7%94%A8%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">结果（可验证、可复用）</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%8E%9F%E5%B7%A5%E5%85%B7%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">1. 原工具介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E6%94%B9%E9%80%A0%E5%8A%A8%E6%9C%BA"><span class="nav-number">2.</span> <span class="nav-text">2. 改造动机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E6%94%B9%E9%80%A0%E8%BF%87%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">3. 改造过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E8%A1%A5%E5%85%85-YAML-Frontmatter"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 补充 YAML Frontmatter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E8%B0%83%E6%95%B4%E6%A8%A1%E6%9D%BF%E8%B7%AF%E5%BE%84"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 调整模板路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-%E4%BF%9D%E7%95%99%E5%8E%9F%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 保留原设计系统</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E7%BB%93%E6%9E%9C%E9%AA%8C%E8%AF%81"><span class="nav-number">4.</span> <span class="nav-text">4. 结果验证</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -183,12 +184,12 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -233,12 +234,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="基于 OpenClaw 改造 Cocoon AI 暗色架构图生成器 Skill | Lieakks' Zone">
+      <meta itemprop="name" content="基于 OpenClaw 改造 Cocoon AI 架构图生成 Skill | Lieakks' Zone">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          基于 OpenClaw 改造 Cocoon AI 暗色架构图生成器 Skill
+          基于 OpenClaw 改造 Cocoon AI 架构图生成 Skill
         </h1>
 
         <div class="post-meta-container">
@@ -250,7 +251,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2026-04-14 20:40:00 / 修改时间：20:36:40" itemprop="dateCreated datePublished" datetime="2026-04-14T20:40:00+08:00">2026-04-14</time>
+      <time title="创建时间：2026-04-14 20:40:00 / 修改时间：20:46:07" itemprop="dateCreated datePublished" datetime="2026-04-14T20:40:00+08:00">2026-04-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -258,7 +259,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+          <a href="/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">技术笔记</span></a>
         </span>
     </span>
 
@@ -271,21 +272,87 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>我把 Cocoon AI 的 <code>architecture-diagram-generator</code> 改造成了可直接在 <strong>OpenClaw</strong> 调用的 skill：输入架构描述 → 输出暗色主题、独立 HTML（内嵌 SVG）的架构图。</p>
-<h2 id="原工具"><a href="#原工具" class="headerlink" title="原工具"></a>原工具</h2><ul>
-<li>Cocoon AI：<code>architecture-diagram-generator</code></li>
-<li>链接：<a target="_blank" rel="noopener" href="https://github.com/Cocoon-AI/architecture-diagram-generator">https://github.com/Cocoon-AI/architecture-diagram-generator</a></li>
-</ul>
-<h2 id="为什么要改造它（我用-OpenClaw-的原因）"><a href="#为什么要改造它（我用-OpenClaw-的原因）" class="headerlink" title="为什么要改造它（我用 OpenClaw 的原因）"></a>为什么要改造它（我用 OpenClaw 的原因）</h2><p>原工具是 Claude.ai 专用交互&#x2F;加载方式；而 OpenClaw 对 skill 有固定规范：<strong>SKILL.md 必须有 YAML frontmatter</strong>，且资源文件需要按约定放在 skill 目录下才能被正确读取。</p>
-<h2 id="改造过程（基于经验的最小可行改动）"><a href="#改造过程（基于经验的最小可行改动）" class="headerlink" title="改造过程（基于经验的最小可行改动）"></a>改造过程（基于经验的最小可行改动）</h2><ol>
-<li><strong>补齐 YAML frontmatter</strong>：为 OpenClaw 声明 <code>name/description/metadata.openclaw</code>。</li>
-<li><strong>调整模板资源路径</strong>：把模板挪到 <code>assets/template.html</code>，并确保 SKILL.md 引用到正确位置。</li>
-<li><strong>保持原设计系统</strong>：保留暗色配色、SVG 样式与布局规则（只做 OpenClaw 兼容层改动）。</li>
-</ol>
-<h2 id="结果（可验证、可复用）"><a href="#结果（可验证、可复用）" class="headerlink" title="结果（可验证、可复用）"></a>结果（可验证、可复用）</h2><p>改造后，OpenClaw 已能正确加载并调用该 skill：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">openclaw skills list</span><br><span class="line">✓ ready | 🏗️ architecture-diagram | 生成专业暗色主题系统架构图...</span><br></pre></td></tr></table></figure>
+    <div class="post-body" itemprop="articleBody"><p>Cocoon AI 开源了一款暗色主题架构图生成器（<a target="_blank" rel="noopener" href="https://github.com/Cocoon-AI/architecture-diagram-generator">architecture-diagram-generator</a>），可将自然语言描述的系统架构直接渲染为独立 HTML 文件（内嵌 SVG），无需任何绘图工具。原版为 Claude.ai 专属，本文记录将其迁移到 OpenClaw 环境的过程与结论。</p>
+<span id="more"></span>
 
-<p>用法：描述系统架构 → 生成<strong>独立 HTML 文件</strong>（内嵌 SVG），直接在浏览器打开查看&#x2F;分享。</p>
+<h1 id="1-原工具介绍"><a href="#1-原工具介绍" class="headerlink" title="1. 原工具介绍"></a>1. 原工具介绍</h1><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>名称</td>
+<td><code>architecture-diagram-generator</code></td>
+</tr>
+<tr>
+<td>作者</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/Cocoon-AI/architecture-diagram-generator">Cocoon AI</a></td>
+</tr>
+<tr>
+<td>功能</td>
+<td>自然语言 → 暗色主题 SVG 架构图（独立 HTML）</td>
+</tr>
+<tr>
+<td>设计亮点</td>
+<td>组件分色系统（前端&#x2F;后端&#x2F;数据库&#x2F;云服务）、JetBrains Mono 字体、z-order 箭头遮挡处理</td>
+</tr>
+</tbody></table>
+<h1 id="2-改造动机"><a href="#2-改造动机" class="headerlink" title="2. 改造动机"></a>2. 改造动机</h1><p>OpenClaw 对 skill 有固定的加载规范：</p>
+<ol>
+<li><code>SKILL.md</code> 必须包含 YAML frontmatter（<code>name</code>、<code>description</code>、<code>metadata.openclaw</code>），否则无法被识别和加载</li>
+<li>资源文件需放在 skill 目录下的 <code>assets/</code> 子目录，供运行时正确读取</li>
+</ol>
+<p>原工具的 <code>SKILL.md</code> 不含 frontmatter，模板路径也不符合 OpenClaw 约定，因此需要最小化改造。</p>
+<h1 id="3-改造过程"><a href="#3-改造过程" class="headerlink" title="3. 改造过程"></a>3. 改造过程</h1><h2 id="3-1-补充-YAML-Frontmatter"><a href="#3-1-补充-YAML-Frontmatter" class="headerlink" title="3.1 补充 YAML Frontmatter"></a>3.1 补充 YAML Frontmatter</h2><p>在 <code>SKILL.md</code> 顶部添加：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">architecture-diagram</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">生成专业暗色主题系统架构图，输出为独立HTML文件（内嵌SVG）。适用于系统架构图、基础设施图、云架构可视化、网络拓扑图等。</span></span><br><span class="line"><span class="attr">version:</span> <span class="number">1.0</span><span class="number">.0</span></span><br><span class="line"><span class="attr">license:</span> <span class="string">MIT</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">openclaw:</span></span><br><span class="line">    <span class="attr">emoji:</span> <span class="string">🏗️</span></span><br><span class="line">    <span class="attr">requires:</span></span><br><span class="line">      <span class="attr">bins:</span> []</span><br><span class="line">      <span class="attr">env:</span> []</span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+
+<p><code>description</code> 字段即 OpenClaw 的自然语言触发器，覆盖范围决定被调用的准确率。</p>
+<h2 id="3-2-调整模板路径"><a href="#3-2-调整模板路径" class="headerlink" title="3.2 调整模板路径"></a>3.2 调整模板路径</h2><p>将 <code>template.html</code> 移入 <code>assets/</code> 子目录，并更新 <code>SKILL.md</code> 中的引用路径：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~/.openclaw/skills/architecture-diagram/assets/template.html</span><br></pre></td></tr></table></figure>
+
+<p>最终目录结构：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~/.openclaw/skills/architecture-diagram/</span><br><span class="line">├── SKILL.md</span><br><span class="line">└── assets/</span><br><span class="line">    └── template.html</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-3-保留原设计系统"><a href="#3-3-保留原设计系统" class="headerlink" title="3.3 保留原设计系统"></a>3.3 保留原设计系统</h2><p>配色、字体、布局、箭头遮挡逻辑均沿用原版，无需修改：</p>
+<table>
+<thead>
+<tr>
+<th>组件类型</th>
+<th>描边色</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>前端（Frontend）</td>
+<td><code>#22d3ee</code>（青）</td>
+</tr>
+<tr>
+<td>后端（Backend）</td>
+<td><code>#34d399</code>（绿）</td>
+</tr>
+<tr>
+<td>数据库（Database）</td>
+<td><code>#a78bfa</code>（紫）</td>
+</tr>
+<tr>
+<td>云服务（Cloud）</td>
+<td><code>#fbbf24</code>（琥珀）</td>
+</tr>
+<tr>
+<td>安全边界（Security）</td>
+<td><code>#fb7185</code>（玫瑰）</td>
+</tr>
+</tbody></table>
+<h1 id="4-结果验证"><a href="#4-结果验证" class="headerlink" title="4. 结果验证"></a>4. 结果验证</h1><p>改造完成后，运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openclaw skills list</span><br></pre></td></tr></table></figure>
+
+<p>输出确认加载正常：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">✓ ready | 🏗️ architecture-diagram | 生成专业暗色主题系统架构图...</span><br></pre></td></tr></table></figure>
+
+<p>实测以 MechCalc Tool（Qt6&#x2F;C++ 桌面端机械计算工具）为对象生成架构图，根据真实代码目录结构（<code>src/core/</code>、<code>src/ui/</code>、<code>src/database/</code>）自动分层渲染，输出为浏览器可直接打开的单个 HTML 文件。</p>
+<hr>
+<p><strong>总结</strong>：将第三方 skill 迁移到 OpenClaw 的最小工作量是两步——补 frontmatter、对齐目录结构，设计层面无需改动。</p>
 
     </div>
 
@@ -298,6 +365,7 @@
               <a href="/tags/OpenClaw/" rel="tag"># OpenClaw</a>
               <a href="/tags/Skill/" rel="tag"># Skill</a>
               <a href="/tags/Architecture/" rel="tag"># Architecture</a>
+              <a href="/tags/SVG/" rel="tag"># SVG</a>
           </div>
 
         

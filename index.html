@@ -177,12 +177,12 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -231,7 +231,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2026/04/14/transform-cocoon-skill-to-openclaw/" class="post-title-link" itemprop="url">基于 OpenClaw 改造 Cocoon AI 暗色架构图生成器 Skill</a>
+          <a href="/2026/04/14/transform-cocoon-skill-to-openclaw/" class="post-title-link" itemprop="url">基于 OpenClaw 改造 Cocoon AI 架构图生成 Skill</a>
         </h2>
 
         <div class="post-meta-container">
@@ -243,7 +243,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2026-04-14 20:40:00 / 修改时间：20:36:40" itemprop="dateCreated datePublished" datetime="2026-04-14T20:40:00+08:00">2026-04-14</time>
+      <time title="创建时间：2026-04-14 20:40:00 / 修改时间：20:46:07" itemprop="dateCreated datePublished" datetime="2026-04-14T20:40:00+08:00">2026-04-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -251,7 +251,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+          <a href="/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">技术笔记</span></a>
         </span>
     </span>
 
@@ -265,22 +265,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>我把 Cocoon AI 的 <code>architecture-diagram-generator</code> 改造成了可直接在 <strong>OpenClaw</strong> 调用的 skill：输入架构描述 → 输出暗色主题、独立 HTML（内嵌 SVG）的架构图。</p>
-<h2 id="原工具"><a href="#原工具" class="headerlink" title="原工具"></a>原工具</h2><ul>
-<li>Cocoon AI：<code>architecture-diagram-generator</code></li>
-<li>链接：<a target="_blank" rel="noopener" href="https://github.com/Cocoon-AI/architecture-diagram-generator">https://github.com/Cocoon-AI/architecture-diagram-generator</a></li>
-</ul>
-<h2 id="为什么要改造它（我用-OpenClaw-的原因）"><a href="#为什么要改造它（我用-OpenClaw-的原因）" class="headerlink" title="为什么要改造它（我用 OpenClaw 的原因）"></a>为什么要改造它（我用 OpenClaw 的原因）</h2><p>原工具是 Claude.ai 专用交互&#x2F;加载方式；而 OpenClaw 对 skill 有固定规范：<strong>SKILL.md 必须有 YAML frontmatter</strong>，且资源文件需要按约定放在 skill 目录下才能被正确读取。</p>
-<h2 id="改造过程（基于经验的最小可行改动）"><a href="#改造过程（基于经验的最小可行改动）" class="headerlink" title="改造过程（基于经验的最小可行改动）"></a>改造过程（基于经验的最小可行改动）</h2><ol>
-<li><strong>补齐 YAML frontmatter</strong>：为 OpenClaw 声明 <code>name/description/metadata.openclaw</code>。</li>
-<li><strong>调整模板资源路径</strong>：把模板挪到 <code>assets/template.html</code>，并确保 SKILL.md 引用到正确位置。</li>
-<li><strong>保持原设计系统</strong>：保留暗色配色、SVG 样式与布局规则（只做 OpenClaw 兼容层改动）。</li>
-</ol>
-<h2 id="结果（可验证、可复用）"><a href="#结果（可验证、可复用）" class="headerlink" title="结果（可验证、可复用）"></a>结果（可验证、可复用）</h2><p>改造后，OpenClaw 已能正确加载并调用该 skill：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">openclaw skills list</span><br><span class="line">✓ ready | 🏗️ architecture-diagram | 生成专业暗色主题系统架构图...</span><br></pre></td></tr></table></figure>
-
-<p>用法：描述系统架构 → 生成<strong>独立 HTML 文件</strong>（内嵌 SVG），直接在浏览器打开查看&#x2F;分享。</p>
-
+          <p>Cocoon AI 开源了一款暗色主题架构图生成器（<a target="_blank" rel="noopener" href="https://github.com/Cocoon-AI/architecture-diagram-generator">architecture-diagram-generator</a>），可将自然语言描述的系统架构直接渲染为独立 HTML 文件（内嵌 SVG），无需任何绘图工具。原版为 Claude.ai 专属，本文记录将其迁移到 OpenClaw 环境的过程与结论。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2026/04/14/transform-cocoon-skill-to-openclaw/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -342,7 +335,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-14 20:36:40" itemprop="dateModified" datetime="2026-04-14T20:36:40+08:00">2026-04-14</time>
+      <time title="修改时间：2026-04-14 20:46:07" itemprop="dateModified" datetime="2026-04-14T20:46:07+08:00">2026-04-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -434,7 +427,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-14 20:36:40" itemprop="dateModified" datetime="2026-04-14T20:36:40+08:00">2026-04-14</time>
+      <time title="修改时间：2026-04-14 20:46:07" itemprop="dateModified" datetime="2026-04-14T20:46:07+08:00">2026-04-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -536,7 +529,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-14 20:36:40" itemprop="dateModified" datetime="2026-04-14T20:36:40+08:00">2026-04-14</time>
+      <time title="修改时间：2026-04-14 20:46:07" itemprop="dateModified" datetime="2026-04-14T20:46:07+08:00">2026-04-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
