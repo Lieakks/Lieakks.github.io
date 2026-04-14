@@ -182,7 +182,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -231,7 +231,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2026/04/14/transform-cocoon-skill-to-openclaw/" class="post-title-link" itemprop="url">改造 Cocoon AI Skill 为 OpenClaw 可用</a>
+          <a href="/2026/04/14/transform-cocoon-skill-to-openclaw/" class="post-title-link" itemprop="url">基于 OpenClaw 改造 Cocoon AI 暗色架构图生成器 Skill</a>
         </h2>
 
         <div class="post-meta-container">
@@ -243,7 +243,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2026-04-14 20:30:00 / 修改时间：20:28:51" itemprop="dateCreated datePublished" datetime="2026-04-14T20:30:00+08:00">2026-04-14</time>
+      <time title="创建时间：2026-04-14 20:40:00 / 修改时间：20:36:40" itemprop="dateCreated datePublished" datetime="2026-04-14T20:40:00+08:00">2026-04-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -265,37 +265,21 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>Cocoon AI 的 <code>architecture-diagram-generator</code> 是 Claude.ai 专用 Skill，OpenClaw 需要 YAML frontmatter 才能识别加载。</p>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><table>
-<thead>
-<tr>
-<th>改动</th>
-<th>原始</th>
-<th>改造后</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>加 frontmatter</strong></td>
-<td>无</td>
-<td><code>name</code> + <code>description</code> + <code>metadata.openclaw</code></td>
-</tr>
-<tr>
-<td><strong>移模板</strong></td>
-<td><code>template.html</code></td>
-<td><code>assets/template.html</code></td>
-</tr>
-<tr>
-<td><strong>保设计</strong></td>
-<td>-</td>
-<td>沿用暗色配色系统</td>
-</tr>
-</tbody></table>
-<p><strong>文件结构</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~/.openclaw/skills/architecture-diagram/</span><br><span class="line">├── SKILL.md          # 技能定义</span><br><span class="line">└── assets/</span><br><span class="line">    └── template.html # HTML 模板</span><br></pre></td></tr></table></figure>
+          <p>我把 Cocoon AI 的 <code>architecture-diagram-generator</code> 改造成了可直接在 <strong>OpenClaw</strong> 调用的 skill：输入架构描述 → 输出暗色主题、独立 HTML（内嵌 SVG）的架构图。</p>
+<h2 id="原工具"><a href="#原工具" class="headerlink" title="原工具"></a>原工具</h2><ul>
+<li>Cocoon AI：<code>architecture-diagram-generator</code></li>
+<li>链接：<a target="_blank" rel="noopener" href="https://github.com/Cocoon-AI/architecture-diagram-generator">https://github.com/Cocoon-AI/architecture-diagram-generator</a></li>
+</ul>
+<h2 id="为什么要改造它（我用-OpenClaw-的原因）"><a href="#为什么要改造它（我用-OpenClaw-的原因）" class="headerlink" title="为什么要改造它（我用 OpenClaw 的原因）"></a>为什么要改造它（我用 OpenClaw 的原因）</h2><p>原工具是 Claude.ai 专用交互&#x2F;加载方式；而 OpenClaw 对 skill 有固定规范：<strong>SKILL.md 必须有 YAML frontmatter</strong>，且资源文件需要按约定放在 skill 目录下才能被正确读取。</p>
+<h2 id="改造过程（基于经验的最小可行改动）"><a href="#改造过程（基于经验的最小可行改动）" class="headerlink" title="改造过程（基于经验的最小可行改动）"></a>改造过程（基于经验的最小可行改动）</h2><ol>
+<li><strong>补齐 YAML frontmatter</strong>：为 OpenClaw 声明 <code>name/description/metadata.openclaw</code>。</li>
+<li><strong>调整模板资源路径</strong>：把模板挪到 <code>assets/template.html</code>，并确保 SKILL.md 引用到正确位置。</li>
+<li><strong>保持原设计系统</strong>：保留暗色配色、SVG 样式与布局规则（只做 OpenClaw 兼容层改动）。</li>
+</ol>
+<h2 id="结果（可验证、可复用）"><a href="#结果（可验证、可复用）" class="headerlink" title="结果（可验证、可复用）"></a>结果（可验证、可复用）</h2><p>改造后，OpenClaw 已能正确加载并调用该 skill：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">openclaw skills list</span><br><span class="line">✓ ready | 🏗️ architecture-diagram | 生成专业暗色主题系统架构图...</span><br></pre></td></tr></table></figure>
 
-<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ openclaw skills list</span><br><span class="line">✓ ready | 🏗️ architecture-diagram | 生成专业暗色主题系统架构图...</span><br></pre></td></tr></table></figure>
-
-<p>现已可用：描述系统架构 → 生成独立 HTML 文件（内嵌 SVG），浏览器直接打开查看。</p>
+<p>用法：描述系统架构 → 生成<strong>独立 HTML 文件</strong>（内嵌 SVG），直接在浏览器打开查看&#x2F;分享。</p>
 
       
     </div>
@@ -358,7 +342,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-14 20:28:51" itemprop="dateModified" datetime="2026-04-14T20:28:51+08:00">2026-04-14</time>
+      <time title="修改时间：2026-04-14 20:36:40" itemprop="dateModified" datetime="2026-04-14T20:36:40+08:00">2026-04-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -450,7 +434,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-14 20:28:51" itemprop="dateModified" datetime="2026-04-14T20:28:51+08:00">2026-04-14</time>
+      <time title="修改时间：2026-04-14 20:36:40" itemprop="dateModified" datetime="2026-04-14T20:36:40+08:00">2026-04-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -552,7 +536,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-14 20:28:51" itemprop="dateModified" datetime="2026-04-14T20:28:51+08:00">2026-04-14</time>
+      <time title="修改时间：2026-04-14 20:36:40" itemprop="dateModified" datetime="2026-04-14T20:36:40+08:00">2026-04-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">

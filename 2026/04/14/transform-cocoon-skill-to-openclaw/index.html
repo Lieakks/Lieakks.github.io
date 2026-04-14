@@ -21,16 +21,17 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"lieakks.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="原因Cocoon AI 的 architecture-diagram-generator 是 Claude.ai 专用 Skill，OpenClaw 需要 YAML frontmatter 才能识别加载。 方法   改动 原始 改造后    加 frontmatter 无 name + description + metadata.openclaw   移模板 template.html asse">
+    <meta name="description" content="我把 Cocoon AI 的 architecture-diagram-generator 改造成了可直接在 OpenClaw 调用的 skill：输入架构描述 → 输出暗色主题、独立 HTML（内嵌 SVG）的架构图。 原工具 Cocoon AI：architecture-diagram-generator 链接：https:&#x2F;&#x2F;github.com&#x2F;Cocoon-AI&#x2F;architecture">
 <meta property="og:type" content="article">
-<meta property="og:title" content="改造 Cocoon AI Skill 为 OpenClaw 可用">
+<meta property="og:title" content="基于 OpenClaw 改造 Cocoon AI 暗色架构图生成器 Skill">
 <meta property="og:url" content="https://lieakks.com/2026/04/14/transform-cocoon-skill-to-openclaw/index.html">
 <meta property="og:site_name" content="Lieakks&#39; Zone">
-<meta property="og:description" content="原因Cocoon AI 的 architecture-diagram-generator 是 Claude.ai 专用 Skill，OpenClaw 需要 YAML frontmatter 才能识别加载。 方法   改动 原始 改造后    加 frontmatter 无 name + description + metadata.openclaw   移模板 template.html asse">
+<meta property="og:description" content="我把 Cocoon AI 的 architecture-diagram-generator 改造成了可直接在 OpenClaw 调用的 skill：输入架构描述 → 输出暗色主题、独立 HTML（内嵌 SVG）的架构图。 原工具 Cocoon AI：architecture-diagram-generator 链接：https:&#x2F;&#x2F;github.com&#x2F;Cocoon-AI&#x2F;architecture">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2026-04-14T12:30:00.000Z">
-<meta property="article:modified_time" content="2026-04-14T12:28:51.408Z">
+<meta property="article:published_time" content="2026-04-14T12:40:00.000Z">
+<meta property="article:modified_time" content="2026-04-14T12:36:40.813Z">
 <meta property="article:author" content="Lieakks">
+<meta property="article:tag" content="Architecture">
 <meta property="article:tag" content="OpenClaw">
 <meta property="article:tag" content="Skill">
 <meta name="twitter:card" content="summary">
@@ -39,10 +40,10 @@
 <link rel="canonical" href="https://lieakks.com/2026/04/14/transform-cocoon-skill-to-openclaw/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lieakks.com/2026/04/14/transform-cocoon-skill-to-openclaw/","path":"2026/04/14/transform-cocoon-skill-to-openclaw/","title":"改造 Cocoon AI Skill 为 OpenClaw 可用"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lieakks.com/2026/04/14/transform-cocoon-skill-to-openclaw/","path":"2026/04/14/transform-cocoon-skill-to-openclaw/","title":"基于 OpenClaw 改造 Cocoon AI 暗色架构图生成器 Skill"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>改造 Cocoon AI Skill 为 OpenClaw 可用 | Lieakks' Zone</title>
+<title>基于 OpenClaw 改造 Cocoon AI 暗色架构图生成器 Skill | Lieakks' Zone</title>
   
 
 
@@ -161,7 +162,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%9B%A0"><span class="nav-number">1.</span> <span class="nav-text">原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%88%E6%9E%9C"><span class="nav-number">3.</span> <span class="nav-text">效果</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%B7%A5%E5%85%B7"><span class="nav-number">1.</span> <span class="nav-text">原工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%94%B9%E9%80%A0%E5%AE%83%EF%BC%88%E6%88%91%E7%94%A8-OpenClaw-%E7%9A%84%E5%8E%9F%E5%9B%A0%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">为什么要改造它（我用 OpenClaw 的原因）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%B9%E9%80%A0%E8%BF%87%E7%A8%8B%EF%BC%88%E5%9F%BA%E4%BA%8E%E7%BB%8F%E9%AA%8C%E7%9A%84%E6%9C%80%E5%B0%8F%E5%8F%AF%E8%A1%8C%E6%94%B9%E5%8A%A8%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">改造过程（基于经验的最小可行改动）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C%EF%BC%88%E5%8F%AF%E9%AA%8C%E8%AF%81%E3%80%81%E5%8F%AF%E5%A4%8D%E7%94%A8%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">结果（可验证、可复用）</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -187,7 +188,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -232,12 +233,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="改造 Cocoon AI Skill 为 OpenClaw 可用 | Lieakks' Zone">
+      <meta itemprop="name" content="基于 OpenClaw 改造 Cocoon AI 暗色架构图生成器 Skill | Lieakks' Zone">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          改造 Cocoon AI Skill 为 OpenClaw 可用
+          基于 OpenClaw 改造 Cocoon AI 暗色架构图生成器 Skill
         </h1>
 
         <div class="post-meta-container">
@@ -249,7 +250,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2026-04-14 20:30:00 / 修改时间：20:28:51" itemprop="dateCreated datePublished" datetime="2026-04-14T20:30:00+08:00">2026-04-14</time>
+      <time title="创建时间：2026-04-14 20:40:00 / 修改时间：20:36:40" itemprop="dateCreated datePublished" datetime="2026-04-14T20:40:00+08:00">2026-04-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -270,37 +271,21 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>Cocoon AI 的 <code>architecture-diagram-generator</code> 是 Claude.ai 专用 Skill，OpenClaw 需要 YAML frontmatter 才能识别加载。</p>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><table>
-<thead>
-<tr>
-<th>改动</th>
-<th>原始</th>
-<th>改造后</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>加 frontmatter</strong></td>
-<td>无</td>
-<td><code>name</code> + <code>description</code> + <code>metadata.openclaw</code></td>
-</tr>
-<tr>
-<td><strong>移模板</strong></td>
-<td><code>template.html</code></td>
-<td><code>assets/template.html</code></td>
-</tr>
-<tr>
-<td><strong>保设计</strong></td>
-<td>-</td>
-<td>沿用暗色配色系统</td>
-</tr>
-</tbody></table>
-<p><strong>文件结构</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~/.openclaw/skills/architecture-diagram/</span><br><span class="line">├── SKILL.md          # 技能定义</span><br><span class="line">└── assets/</span><br><span class="line">    └── template.html # HTML 模板</span><br></pre></td></tr></table></figure>
+    <div class="post-body" itemprop="articleBody"><p>我把 Cocoon AI 的 <code>architecture-diagram-generator</code> 改造成了可直接在 <strong>OpenClaw</strong> 调用的 skill：输入架构描述 → 输出暗色主题、独立 HTML（内嵌 SVG）的架构图。</p>
+<h2 id="原工具"><a href="#原工具" class="headerlink" title="原工具"></a>原工具</h2><ul>
+<li>Cocoon AI：<code>architecture-diagram-generator</code></li>
+<li>链接：<a target="_blank" rel="noopener" href="https://github.com/Cocoon-AI/architecture-diagram-generator">https://github.com/Cocoon-AI/architecture-diagram-generator</a></li>
+</ul>
+<h2 id="为什么要改造它（我用-OpenClaw-的原因）"><a href="#为什么要改造它（我用-OpenClaw-的原因）" class="headerlink" title="为什么要改造它（我用 OpenClaw 的原因）"></a>为什么要改造它（我用 OpenClaw 的原因）</h2><p>原工具是 Claude.ai 专用交互&#x2F;加载方式；而 OpenClaw 对 skill 有固定规范：<strong>SKILL.md 必须有 YAML frontmatter</strong>，且资源文件需要按约定放在 skill 目录下才能被正确读取。</p>
+<h2 id="改造过程（基于经验的最小可行改动）"><a href="#改造过程（基于经验的最小可行改动）" class="headerlink" title="改造过程（基于经验的最小可行改动）"></a>改造过程（基于经验的最小可行改动）</h2><ol>
+<li><strong>补齐 YAML frontmatter</strong>：为 OpenClaw 声明 <code>name/description/metadata.openclaw</code>。</li>
+<li><strong>调整模板资源路径</strong>：把模板挪到 <code>assets/template.html</code>，并确保 SKILL.md 引用到正确位置。</li>
+<li><strong>保持原设计系统</strong>：保留暗色配色、SVG 样式与布局规则（只做 OpenClaw 兼容层改动）。</li>
+</ol>
+<h2 id="结果（可验证、可复用）"><a href="#结果（可验证、可复用）" class="headerlink" title="结果（可验证、可复用）"></a>结果（可验证、可复用）</h2><p>改造后，OpenClaw 已能正确加载并调用该 skill：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">openclaw skills list</span><br><span class="line">✓ ready | 🏗️ architecture-diagram | 生成专业暗色主题系统架构图...</span><br></pre></td></tr></table></figure>
 
-<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ openclaw skills list</span><br><span class="line">✓ ready | 🏗️ architecture-diagram | 生成专业暗色主题系统架构图...</span><br></pre></td></tr></table></figure>
-
-<p>现已可用：描述系统架构 → 生成独立 HTML 文件（内嵌 SVG），浏览器直接打开查看。</p>
+<p>用法：描述系统架构 → 生成<strong>独立 HTML 文件</strong>（内嵌 SVG），直接在浏览器打开查看&#x2F;分享。</p>
 
     </div>
 
@@ -312,6 +297,7 @@
           <div class="post-tags">
               <a href="/tags/OpenClaw/" rel="tag"># OpenClaw</a>
               <a href="/tags/Skill/" rel="tag"># Skill</a>
+              <a href="/tags/Architecture/" rel="tag"># Architecture</a>
           </div>
 
         
