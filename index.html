@@ -249,7 +249,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-19 01:31:48" itemprop="dateModified" datetime="2026-04-19T01:31:48+08:00">2026-04-19</time>
+      <time title="修改时间：2026-04-19 01:39:05" itemprop="dateModified" datetime="2026-04-19T01:39:05+08:00">2026-04-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -341,7 +341,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-19 01:31:48" itemprop="dateModified" datetime="2026-04-19T01:31:48+08:00">2026-04-19</time>
+      <time title="修改时间：2026-04-19 01:39:05" itemprop="dateModified" datetime="2026-04-19T01:39:05+08:00">2026-04-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -433,7 +433,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-19 01:31:48" itemprop="dateModified" datetime="2026-04-19T01:31:48+08:00">2026-04-19</time>
+      <time title="修改时间：2026-04-19 01:39:05" itemprop="dateModified" datetime="2026-04-19T01:39:05+08:00">2026-04-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -525,7 +525,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-19 01:31:48" itemprop="dateModified" datetime="2026-04-19T01:31:48+08:00">2026-04-19</time>
+      <time title="修改时间：2026-04-19 01:39:05" itemprop="dateModified" datetime="2026-04-19T01:39:05+08:00">2026-04-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -617,7 +617,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-19 01:31:48" itemprop="dateModified" datetime="2026-04-19T01:31:48+08:00">2026-04-19</time>
+      <time title="修改时间：2026-04-19 01:39:05" itemprop="dateModified" datetime="2026-04-19T01:39:05+08:00">2026-04-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -644,20 +644,14 @@
 <h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>这个问题的解决方法是在创建markdown文件时，选择utf-8编码格式。如果已经创建了markdown文件，可以在vscode中，选择文件-首选项-设置，然后在搜索框中输入“files.encoding”，然后选择“utf-8”。或者使用记事本打开markdown文件，然后另存为，选择utf-8编码格式。</p>
 <p>这一问题参考了：</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Crazy_Diamond_/article/details/114902456">Hexo解决中文乱码问题</a>。</p>
-<hr>
-<h1 id="问题二"><a href="#问题二" class="headerlink" title="问题二"></a>问题二</h1><p>发布的博客中的图片无法显示。显示出一个裂开的符号。</p>
-<h2 id="原因-1"><a href="#原因-1" class="headerlink" title="原因"></a>原因</h2><p>创建markdown文件是，插入图片的语法是<code>![图片名称](图片路径/图片名称.jpg)</code>，而图片路径是相对于markdown文件的路径，而不是相对于网页的路径。网页中是无法链接到电脑中的图片的。</p>
-<h2 id="解决方法-1"><a href="#解决方法-1" class="headerlink" title="解决方法"></a>解决方法</h2><p>在这里可以使用hexo的插件hexo-renderer-marked，这个插件可以将markdown文件中的图片路径转换为网页中的图片路径。有一些解决方案使用使用的是插件hexo-assets-image,但是我在调试过程中安装又卸载了这个插件后，再次安装hexo-renderer-marked插件时，出现了错误，所以我选择了hexo-renderer-marked插件。</p>
-<p>安装之后，需要在hexo的配置文件_config.yml中修改一些配置，具体如下：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">marked:</span></span><br><span class="line">    <span class="attr">prependRoot:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">postAsset:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<p>其中，post_asset_folder: true表示开启文章资源文件夹，marked表示使用marked插件，prependRoot表示在图片路径前面加上根路径，postAsset表示在图片路径前面加上文章资源文件夹路径。第二到第四行的配置是在hexo的配置文件_config.yml中自行添加的。</p>
-<p>还要注意的是，使用这个插件后，markdown文件中插入图片的语法是<code>![图片名称](图片名称.jpg)</code>，而不是<code>![图片名称](图片路径/图片名称.jpg)</code>。这个很重要，不然会出现图片无法显示的情况。使用这个语法后，编写markdown时图片是无法显示的，但是发布到网页后，图片就可以显示了。以及本地图片资源需要放在source文件夹下的post文件夹中的markdown文件同名文件夹中，而不是放在source文件夹下的images文件夹中。</p>
-<p>如果觉得在编辑markdown文件时，图片无法显示很难受，可以考虑使用typora这个编辑器，这个编辑器可以在编辑markdown文件时，将图片显示出来。具体的设置可以参考<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/265077468">hexo博客如何插入图片</a>这一文章。</p>
-<p>这一问题的解决方法还参考了一下方法：</p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/405551874">[Hexo博客搭建]第4章 Hexo图片显示问题</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Qyy2079628327/article/details/114859707">Hexo博客样式问题填坑向第1弹（本地图片无法显示&#x2F;Cannot GET xxx&#x2F;背景图&#x2F;文章目录索引</a></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/04/02/Problems-cre-post/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -719,7 +713,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-19 01:31:48" itemprop="dateModified" datetime="2026-04-19T01:31:48+08:00">2026-04-19</time>
+      <time title="修改时间：2026-04-19 01:39:05" itemprop="dateModified" datetime="2026-04-19T01:39:05+08:00">2026-04-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -743,15 +737,14 @@
     <div class="post-body" itemprop="articleBody">
           <p>创建好了博客之后，就要开始写文章了，这里记录一下如何在hexo上创建一篇文章。</p>
 <p>首先前提是已经创建了一个博客，以及了解了需要在博客关联的本地仓库的文件夹里调用GIT BASH HERE来创建文章。有关于如何创建博客，可以参考知乎上的这篇文章：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/102592286">从零开始搭建个人博客（超详细）</a>。</p>
-<h1 id="创建文章"><a href="#创建文章" class="headerlink" title="创建文章"></a>创建文章</h1><p>在本地仓库的文件夹里调用GIT BASH HERE，输入如下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new <span class="string">&quot;你的文章名&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>调用GIT BASH HERE的方法如下图所示：</p>
-<p><img src="/2023/04/01/Create_article/git_bash.jpg" alt="这是图片"></p>
-<p>在Git Bash里输入命令后，会在本地仓库的文件夹里生成一个markdown文件，会在source&#x2F;_posts文件夹里生成一个markdown文件，如下图所示：</p>
-<p><img src="/2023/04/01/Create_article/Create_article.jpg" alt="这是图片"></p>
-<p>编辑这个markdown文件，就可以开始写文章了。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/04/01/Create_article/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
