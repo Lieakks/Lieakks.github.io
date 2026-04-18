@@ -249,7 +249,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-19 01:25:15" itemprop="dateModified" datetime="2026-04-19T01:25:15+08:00">2026-04-19</time>
+      <time title="修改时间：2026-04-19 01:31:48" itemprop="dateModified" datetime="2026-04-19T01:31:48+08:00">2026-04-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -272,135 +272,14 @@
     
     <div class="post-body" itemprop="articleBody">
           <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>Ubuntu 作为日常开发和工作的主力系统，默认体验只能说”够用”。通过一系列主题、扩展和输入法配置，可以把它打造成一个既美观又高效的工作环境。本文记录了完整的优化过程，从系统美化到中文输入调优。</p>
-<hr>
-<h2 id="一、系统性能基础优化"><a href="#一、系统性能基础优化" class="headerlink" title="一、系统性能基础优化"></a>一、系统性能基础优化</h2><p>在折腾界面之前，先确保系统性能层面没有问题：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 降低 swappiness，减少过早使用 swap</span></span><br><span class="line"><span class="built_in">sudo</span> sysctl vm.swappiness=10</span><br><span class="line"><span class="comment"># 持久化</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;vm.swappiness=10&quot;</span> | <span class="built_in">sudo</span> <span class="built_in">tee</span> -a /etc/sysctl.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看开机自启服务，精简不必要的</span></span><br><span class="line">systemctl --<span class="built_in">type</span>=service</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装常用监控工具</span></span><br><span class="line"><span class="built_in">sudo</span> apt install htop iotop -y</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><strong>原则</strong>: 调优时一次只改一个变量，并记录修改内容，方便回滚。</p>
-</blockquote>
-<hr>
-<h2 id="二、WhiteSur-Mac-风格美化"><a href="#二、WhiteSur-Mac-风格美化" class="headerlink" title="二、WhiteSur Mac 风格美化"></a>二、WhiteSur Mac 风格美化</h2><h3 id="2-1-安装基础工具"><a href="#2-1-安装基础工具" class="headerlink" title="2.1 安装基础工具"></a>2.1 安装基础工具</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install gnome-tweaks gnome-shell-extensions gnome-shell-extension-manager -y</span><br><span class="line"><span class="built_in">sudo</span> apt install git sassc libglib2.0-dev-bin -y</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-2-安装-WhiteSur-GTK-主题"><a href="#2-2-安装-WhiteSur-GTK-主题" class="headerlink" title="2.2 安装 WhiteSur GTK 主题"></a>2.2 安装 WhiteSur GTK 主题</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/vinceliuice/WhiteSur-gtk-theme.git --depth=1</span><br><span class="line"><span class="built_in">cd</span> WhiteSur-gtk-theme</span><br><span class="line">./install.sh</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-3-安装图标主题"><a href="#2-3-安装图标主题" class="headerlink" title="2.3 安装图标主题"></a>2.3 安装图标主题</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/vinceliuice/WhiteSur-icon-theme.git --depth=1</span><br><span class="line"><span class="built_in">cd</span> WhiteSur-icon-theme</span><br><span class="line">./install.sh -a</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-4-安装壁纸"><a href="#2-4-安装壁纸" class="headerlink" title="2.4 安装壁纸"></a>2.4 安装壁纸</h3><blockquote>
-<p>⚠️ <strong>注意</strong>: 仓库名是 <code>Whitesur-wallpapers</code>（复数），脚本名是 <code>install-wallpapers.sh</code></p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/vinceliuice/WhiteSur-wallpapers.git --depth=1</span><br><span class="line"><span class="built_in">cd</span> WhiteSur-wallpapers</span><br><span class="line">./install-wallpapers.sh</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-5-Tweaks-设置"><a href="#2-5-Tweaks-设置" class="headerlink" title="2.5 Tweaks 设置"></a>2.5 Tweaks 设置</h3><p>打开 <strong>Tweaks（优化）→ 外观</strong>:</p>
-<table>
-<thead>
-<tr>
-<th>设置项</th>
-<th>推荐值</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Applications</td>
-<td><code>WhiteSur-dark</code> 或 <code>WhiteSur-light</code></td>
-</tr>
-<tr>
-<td>Shell</td>
-<td>需启用 User Themes 扩展后可选</td>
-</tr>
-<tr>
-<td>Icons</td>
-<td><code>WhiteSur</code> 或 <code>WhiteSur-dark</code></td>
-</tr>
-<tr>
-<td>Cursor</td>
-<td><code>WhiteSur-cursors</code> 或系统默认</td>
-</tr>
-<tr>
-<td>界面字体</td>
-<td>Noto Sans CJK &#x2F; 思源黑体</td>
-</tr>
-<tr>
-<td>等宽字体</td>
-<td>Fira Code &#x2F; JetBrains Mono</td>
-</tr>
-</tbody></table>
-<h3 id="2-6-关键-GNOME-扩展"><a href="#2-6-关键-GNOME-扩展" class="headerlink" title="2.6 关键 GNOME 扩展"></a>2.6 关键 GNOME 扩展</h3><p>通过 Extension Manager 安装以下扩展：</p>
-<ul>
-<li><strong>User Themes</strong>: 启用 Shell 主题切换</li>
-<li><strong>Dash to Dock</strong>: 将 Dock 移到底部，设置半透明、圆角效果</li>
-<li><strong>Blur My Shell</strong>: 顶栏和概览的毛玻璃效果</li>
-</ul>
-<h3 id="2-7-Mac-风格细节"><a href="#2-7-Mac-风格细节" class="headerlink" title="2.7 Mac 风格细节"></a>2.7 Mac 风格细节</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 窗口按钮移到左上角（红黄绿）</span></span><br><span class="line">gsettings <span class="built_in">set</span> org.gnome.desktop.wm.preferences button-layout <span class="string">&#x27;close,minimize,maximize:&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="2-8-常见问题处理"><a href="#2-8-常见问题处理" class="headerlink" title="2.8 常见问题处理"></a>2.8 常见问题处理</h3><p><strong>VS Code 按钮仍在右上角</strong>: 在 VS Code 设置中搜索 <code>window.titleBarStyle</code>，改为 <code>native</code> 即可跟随系统标题栏。</p>
-<p><strong>Snap 应用不跟随主题</strong>: Snap 沙箱隔离导致无法读取系统主题，建议优先使用 <code>.deb</code> 或 Flatpak 版本。</p>
-<p><strong>Telegram 样式不统一</strong>: Telegram Desktop 是 Qt 应用，不走 GTK 主题体系，无法完全统一外观，建议接受差异。</p>
-<hr>
-<h2 id="三、中文字体安装"><a href="#三、中文字体安装" class="headerlink" title="三、中文字体安装"></a>三、中文字体安装</h2><p>Ubuntu 默认不带编程字体，手动安装后 VS Code 和终端体验会更好：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 包管理器安装（推荐先试）</span></span><br><span class="line"><span class="built_in">sudo</span> apt install fonts-firacode fonts-jetbrains-mono -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果源里没有，手动安装</span></span><br><span class="line"><span class="built_in">mkdir</span> -p ~/.local/share/fonts</span><br><span class="line"><span class="comment"># 将 .ttf 文件拷贝到上述目录</span></span><br><span class="line">fc-cache -f -v</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="四、Fcitx5-输入法配置"><a href="#四、Fcitx5-输入法配置" class="headerlink" title="四、Fcitx5 输入法配置"></a>四、Fcitx5 输入法配置</h2><h3 id="4-1-安装"><a href="#4-1-安装" class="headerlink" title="4.1 安装"></a>4.1 安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install fcitx5 fcitx5-chinese-addons fcitx5-config-qt fcitx5-frontend-gtk3 -y</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-2-环境变量配置"><a href="#4-2-环境变量配置" class="headerlink" title="4.2 环境变量配置"></a>4.2 环境变量配置</h3><p>这是最关键的一步，配置不正确会导致候选框位置异常。</p>
-<p>编辑 <code>~/.pam_environment</code>:</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GTK_IM_MODULE DEFAULT=fcitx</span><br><span class="line">QT_IM_MODULE  DEFAULT=fcitx</span><br><span class="line">XMODIFIERS    DEFAULT=@im=fcitx</span><br></pre></td></tr></table></figure>
-
-<p>编辑 <code>~/.xprofile</code>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> GTK_IM_MODULE=fcitx</span><br><span class="line"><span class="built_in">export</span> QT_IM_MODULE=fcitx</span><br><span class="line"><span class="built_in">export</span> XMODIFIERS=@im=fcitx</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -x <span class="string">&quot;<span class="subst">$(command -v fcitx5)</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">    fcitx5 -d</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="4-3-验证配置"><a href="#4-3-验证配置" class="headerlink" title="4.3 验证配置"></a>4.3 验证配置</h3><p>修改后必须<strong>完整注销并重新登录</strong>，然后验证：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$XDG_SESSION_TYPE</span>    <span class="comment"># wayland</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$GTK_IM_MODULE</span>       <span class="comment"># fcitx</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$QT_IM_MODULE</span>        <span class="comment"># fcitx</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$XMODIFIERS</span>          <span class="comment"># @im=fcitx</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="4-4-候选框位置问题排查"><a href="#4-4-候选框位置问题排查" class="headerlink" title="4.4 候选框位置问题排查"></a>4.4 候选框位置问题排查</h3><ul>
-<li>确认 <code>fcitx5-frontend-wayland</code> 等前端组件已安装</li>
-<li>在 <code>fcitx5-configtool</code> 中启用”跟随光标”</li>
-<li>临时切换默认主题排除皮肤兼容性问题</li>
-<li>Wayland 下部分 Snap 应用存在候选框偏移，属已知限制</li>
-</ul>
-<hr>
-<h2 id="五、快捷键优化建议"><a href="#五、快捷键优化建议" class="headerlink" title="五、快捷键优化建议"></a>五、快捷键优化建议</h2><p>不建议大规模修改默认快捷键，原因：</p>
-<ol>
-<li>与 VS Code、终端等开发工具的内部快捷键容易冲突</li>
-<li>学习成本高，容易遗忘</li>
-<li>复制&#x2F;粘贴等高频操作的 <code>Ctrl</code> 系列在 Linux 生态中根深蒂固</li>
-</ol>
-<p>推荐少量添加自定义快捷键：</p>
-<table>
-<thead>
-<tr>
-<th>快捷键</th>
-<th>命令</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>Super+T</code></td>
-<td><code>gnome-terminal</code></td>
-<td>快速打开终端</td>
-</tr>
-<tr>
-<td><code>Super+E</code></td>
-<td><code>code</code></td>
-<td>快速打开 VS Code</td>
-</tr>
-<tr>
-<td><code>Super+F</code></td>
-<td><code>nautilus</code></td>
-<td>快速打开文件管理器</td>
-</tr>
-</tbody></table>
-<p>Fcitx5 输入法切换建议设置为 <code>Ctrl+Space</code>，避免与系统快捷键冲突。</p>
-<hr>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>经过以上配置，Ubuntu 24.04 的外观已经非常接近 macOS，同时保留了 Linux 的操作逻辑。几个核心要点：</p>
-<ul>
-<li><strong>Snap 应用</strong>主题兼容性差，优先选 <code>.deb</code> 或 Flatpak</li>
-<li><strong>Fcitx5 环境变量</strong>必须正确配置，否则候选框位置异常</li>
-<li><strong>Qt 应用</strong>（如 Telegram）不走 GTK 主题，无法完全统一</li>
-<li><strong>一次只改一个变量</strong>，方便排查和回滚</li>
-</ul>
-<p>希望这篇实战记录对你有所帮助。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2026/04/18/2026-04-18-ubuntu-24-desktop-optimization/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -462,7 +341,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-19 01:25:15" itemprop="dateModified" datetime="2026-04-19T01:25:15+08:00">2026-04-19</time>
+      <time title="修改时间：2026-04-19 01:31:48" itemprop="dateModified" datetime="2026-04-19T01:31:48+08:00">2026-04-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -554,7 +433,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-19 01:25:15" itemprop="dateModified" datetime="2026-04-19T01:25:15+08:00">2026-04-19</time>
+      <time title="修改时间：2026-04-19 01:31:48" itemprop="dateModified" datetime="2026-04-19T01:31:48+08:00">2026-04-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -646,7 +525,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-19 01:25:15" itemprop="dateModified" datetime="2026-04-19T01:25:15+08:00">2026-04-19</time>
+      <time title="修改时间：2026-04-19 01:31:48" itemprop="dateModified" datetime="2026-04-19T01:31:48+08:00">2026-04-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -738,7 +617,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-19 01:25:15" itemprop="dateModified" datetime="2026-04-19T01:25:15+08:00">2026-04-19</time>
+      <time title="修改时间：2026-04-19 01:31:48" itemprop="dateModified" datetime="2026-04-19T01:31:48+08:00">2026-04-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -840,7 +719,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-19 01:25:15" itemprop="dateModified" datetime="2026-04-19T01:25:15+08:00">2026-04-19</time>
+      <time title="修改时间：2026-04-19 01:31:48" itemprop="dateModified" datetime="2026-04-19T01:31:48+08:00">2026-04-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
