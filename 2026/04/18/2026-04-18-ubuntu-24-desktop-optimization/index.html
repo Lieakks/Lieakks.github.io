@@ -21,16 +21,16 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"lieakks.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="引言Ubuntu 作为日常开发和工作的主力系统，默认体验只能说”够用”。通过一系列主题、扩展和输入法配置，可以把它打造成一个既美观又高效的工作环境。本文记录了完整的优化过程，从系统美化到中文输入调优。">
+    <meta name="description" content="之前一直用 Windows 做主力开发，后来慢慢切到 Ubuntu。系统装上之后第一感觉就是——能用，但离”好用”差了一截。默认界面说实话有点粗糙，中文输入法也折腾了好一阵子才搞定。这篇文章记录一下我把 Ubuntu 24.04 从”能用”变成”好用”的整个过程。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ubuntu 24.04 桌面美化与体验优化实战">
 <meta property="og:url" content="https://lieakks.com/2026/04/18/2026-04-18-ubuntu-24-desktop-optimization/index.html">
 <meta property="og:site_name" content="Lieakks&#39; Zone">
-<meta property="og:description" content="引言Ubuntu 作为日常开发和工作的主力系统，默认体验只能说”够用”。通过一系列主题、扩展和输入法配置，可以把它打造成一个既美观又高效的工作环境。本文记录了完整的优化过程，从系统美化到中文输入调优。">
+<meta property="og:description" content="之前一直用 Windows 做主力开发，后来慢慢切到 Ubuntu。系统装上之后第一感觉就是——能用，但离”好用”差了一截。默认界面说实话有点粗糙，中文输入法也折腾了好一阵子才搞定。这篇文章记录一下我把 Ubuntu 24.04 从”能用”变成”好用”的整个过程。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://lieakks.com/images/2026-04-18-ubuntu-24-desktop-optimization/Ubuntu_Mac%E9%A3%8E%E6%A0%BC%E4%BC%98%E5%8C%96.png">
 <meta property="article:published_time" content="2026-04-18T15:30:00.000Z">
-<meta property="article:modified_time" content="2026-04-19T03:27:51.269Z">
+<meta property="article:modified_time" content="2026-04-19T03:44:24.869Z">
 <meta property="article:author" content="Lieakks">
 <meta property="article:tag" content="Fcitx5">
 <meta property="article:tag" content="Linux">
@@ -166,7 +166,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E7%B3%BB%E7%BB%9F%E6%80%A7%E8%83%BD%E5%9F%BA%E7%A1%80%E4%BC%98%E5%8C%96"><span class="nav-number">2.</span> <span class="nav-text">一、系统性能基础优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81WhiteSur-Mac-%E9%A3%8E%E6%A0%BC%E7%BE%8E%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">二、WhiteSur Mac 风格美化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E5%AE%89%E8%A3%85%E5%9F%BA%E7%A1%80%E5%B7%A5%E5%85%B7"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 安装基础工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E5%AE%89%E8%A3%85-WhiteSur-GTK-%E4%B8%BB%E9%A2%98"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 安装 WhiteSur GTK 主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E5%AE%89%E8%A3%85%E5%9B%BE%E6%A0%87%E4%B8%BB%E9%A2%98"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 安装图标主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-%E5%AE%89%E8%A3%85%E5%A3%81%E7%BA%B8"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 安装壁纸</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-Tweaks-%E8%AE%BE%E7%BD%AE"><span class="nav-number">3.5.</span> <span class="nav-text">2.5 Tweaks 设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-%E5%85%B3%E9%94%AE-GNOME-%E6%89%A9%E5%B1%95"><span class="nav-number">3.6.</span> <span class="nav-text">2.6 关键 GNOME 扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-Mac-%E9%A3%8E%E6%A0%BC%E7%BB%86%E8%8A%82"><span class="nav-number">3.7.</span> <span class="nav-text">2.7 Mac 风格细节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-8-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86"><span class="nav-number">3.8.</span> <span class="nav-text">2.8 常见问题处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E4%B8%AD%E6%96%87%E5%AD%97%E4%BD%93%E5%AE%89%E8%A3%85"><span class="nav-number">4.</span> <span class="nav-text">三、中文字体安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81Fcitx5-%E8%BE%93%E5%85%A5%E6%B3%95%E9%85%8D%E7%BD%AE"><span class="nav-number">5.</span> <span class="nav-text">四、Fcitx5 输入法配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E5%AE%89%E8%A3%85"><span class="nav-number">5.1.</span> <span class="nav-text">4.1 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE"><span class="nav-number">5.2.</span> <span class="nav-text">4.2 环境变量配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E9%AA%8C%E8%AF%81%E9%85%8D%E7%BD%AE"><span class="nav-number">5.3.</span> <span class="nav-text">4.3 验证配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-%E5%80%99%E9%80%89%E6%A1%86%E4%BD%8D%E7%BD%AE%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5"><span class="nav-number">5.4.</span> <span class="nav-text">4.4 候选框位置问题排查</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE"><span class="nav-number">6.</span> <span class="nav-text">五、快捷键优化建议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E4%BC%98%E5%8C%96%E6%95%88%E6%9E%9C"><span class="nav-number">7.</span> <span class="nav-text">六、优化效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%88%E5%81%9A%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%8C%E5%86%8D%E6%8A%98%E8%85%BE%E7%95%8C%E9%9D%A2"><span class="nav-number">1.</span> <span class="nav-text">先做性能优化，再折腾界面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WhiteSur-Mac-%E9%A3%8E%E6%A0%BC%E7%BE%8E%E5%8C%96"><span class="nav-number">2.</span> <span class="nav-text">WhiteSur Mac 风格美化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%9F%BA%E7%A1%80%E5%B7%A5%E5%85%B7"><span class="nav-number">2.1.</span> <span class="nav-text">安装基础工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-WhiteSur-GTK-%E4%B8%BB%E9%A2%98"><span class="nav-number">2.2.</span> <span class="nav-text">安装 WhiteSur GTK 主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%9B%BE%E6%A0%87%E4%B8%BB%E9%A2%98"><span class="nav-number">2.3.</span> <span class="nav-text">安装图标主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%A3%81%E7%BA%B8"><span class="nav-number">2.4.</span> <span class="nav-text">安装壁纸</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tweaks-%E8%AE%BE%E7%BD%AE"><span class="nav-number">2.5.</span> <span class="nav-text">Tweaks 设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%A0%E4%B8%AA%E5%85%B3%E9%94%AE%E7%9A%84-GNOME-%E6%89%A9%E5%B1%95"><span class="nav-number">2.6.</span> <span class="nav-text">几个关键的 GNOME 扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%8A%E7%AA%97%E5%8F%A3%E6%8C%89%E9%92%AE%E7%A7%BB%E5%88%B0%E5%B7%A6%E4%B8%8A%E8%A7%92"><span class="nav-number">2.7.</span> <span class="nav-text">把窗口按钮移到左上角</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B8%A9%E8%BF%87%E7%9A%84%E5%87%A0%E4%B8%AA%E5%9D%91"><span class="nav-number">2.8.</span> <span class="nav-text">踩过的几个坑</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E6%96%87%E5%AD%97%E4%BD%93%E5%92%8C%E7%BC%96%E7%A8%8B%E5%AD%97%E4%BD%93"><span class="nav-number">3.</span> <span class="nav-text">中文字体和编程字体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fcitx5-%E8%BE%93%E5%85%A5%E6%B3%95%E9%85%8D%E7%BD%AE"><span class="nav-number">4.</span> <span class="nav-text">Fcitx5 输入法配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">4.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE%EF%BC%88%E6%9C%80%E5%85%B3%E9%94%AE%E7%9A%84%E4%B8%80%E6%AD%A5%EF%BC%89"><span class="nav-number">4.2.</span> <span class="nav-text">环境变量配置（最关键的一步）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81"><span class="nav-number">4.3.</span> <span class="nav-text">验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%80%99%E9%80%89%E6%A1%86%E4%BD%8D%E7%BD%AE%E4%B8%8D%E5%AF%B9%E7%9A%84%E6%8E%92%E6%9F%A5"><span class="nav-number">4.4.</span> <span class="nav-text">候选框位置不对的排查</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="nav-number">5.</span> <span class="nav-text">快捷键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E%E7%9A%84%E6%95%88%E6%9E%9C"><span class="nav-number">6.</span> <span class="nav-text">最后的效果</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -260,7 +260,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-19 11:27:51" itemprop="dateModified" datetime="2026-04-19T11:27:51+08:00">2026-04-19</time>
+      <time title="修改时间：2026-04-19 11:44:24" itemprop="dateModified" datetime="2026-04-19T11:44:24+08:00">2026-04-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -281,102 +281,104 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>Ubuntu 作为日常开发和工作的主力系统，默认体验只能说”够用”。通过一系列主题、扩展和输入法配置，可以把它打造成一个既美观又高效的工作环境。本文记录了完整的优化过程，从系统美化到中文输入调优。</p>
+    <div class="post-body" itemprop="articleBody"><p>之前一直用 Windows 做主力开发，后来慢慢切到 Ubuntu。系统装上之后第一感觉就是——能用，但离”好用”差了一截。默认界面说实话有点粗糙，中文输入法也折腾了好一阵子才搞定。这篇文章记录一下我把 Ubuntu 24.04 从”能用”变成”好用”的整个过程。</p>
 <span id="more"></span>
 
-<h2 id="一、系统性能基础优化"><a href="#一、系统性能基础优化" class="headerlink" title="一、系统性能基础优化"></a>一、系统性能基础优化</h2><p>在折腾界面之前，先确保系统性能层面没有问题：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 降低 swappiness，减少过早使用 swap</span></span><br><span class="line"><span class="built_in">sudo</span> sysctl vm.swappiness=10</span><br><span class="line"><span class="comment"># 持久化</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;vm.swappiness=10&quot;</span> | <span class="built_in">sudo</span> <span class="built_in">tee</span> -a /etc/sysctl.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看开机自启服务，精简不必要的</span></span><br><span class="line">systemctl --<span class="built_in">type</span>=service</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装常用监控工具</span></span><br><span class="line"><span class="built_in">sudo</span> apt install htop iotop -y</span><br></pre></td></tr></table></figure>
+<h2 id="先做性能优化，再折腾界面"><a href="#先做性能优化，再折腾界面" class="headerlink" title="先做性能优化，再折腾界面"></a>先做性能优化，再折腾界面</h2><p>在搞美化之前，先把系统底层理顺。不然界面再好看，用起来卡顿也是白搭。</p>
+<p>先降低 swappiness，避免内存还没怎么吃就开始用 swap，系统会突然变卡：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> sysctl vm.swappiness=10</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;vm.swappiness=10&quot;</span> | <span class="built_in">sudo</span> <span class="built_in">tee</span> -a /etc/sysctl.conf</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p><strong>原则</strong>: 调优时一次只改一个变量，并记录修改内容，方便回滚。</p>
-</blockquote>
-<hr>
-<h2 id="二、WhiteSur-Mac-风格美化"><a href="#二、WhiteSur-Mac-风格美化" class="headerlink" title="二、WhiteSur Mac 风格美化"></a>二、WhiteSur Mac 风格美化</h2><h3 id="2-1-安装基础工具"><a href="#2-1-安装基础工具" class="headerlink" title="2.1 安装基础工具"></a>2.1 安装基础工具</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install gnome-tweaks gnome-shell-extensions gnome-shell-extension-manager -y</span><br><span class="line"><span class="built_in">sudo</span> apt install git sassc libglib2.0-dev-bin -y</span><br></pre></td></tr></table></figure>
+<p>再看看开机启动了哪些服务，把不需要的精简掉：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl --<span class="built_in">type</span>=service</span><br></pre></td></tr></table></figure>
 
-<h3 id="2-2-安装-WhiteSur-GTK-主题"><a href="#2-2-安装-WhiteSur-GTK-主题" class="headerlink" title="2.2 安装 WhiteSur GTK 主题"></a>2.2 安装 WhiteSur GTK 主题</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/vinceliuice/WhiteSur-gtk-theme.git --depth=1</span><br><span class="line"><span class="built_in">cd</span> WhiteSur-gtk-theme</span><br><span class="line">./install.sh</span><br></pre></td></tr></table></figure>
+<p>顺便装几个常用的监控工具，后面排查问题用得上：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install htop iotop -y</span><br></pre></td></tr></table></figure>
 
-<h3 id="2-3-安装图标主题"><a href="#2-3-安装图标主题" class="headerlink" title="2.3 安装图标主题"></a>2.3 安装图标主题</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/vinceliuice/WhiteSur-icon-theme.git --depth=1</span><br><span class="line"><span class="built_in">cd</span> WhiteSur-icon-theme</span><br><span class="line">./install.sh -a</span><br></pre></td></tr></table></figure>
+<p>有个教训分享一下：调优的时候一次只改一个变量，改完记一下做了什么。我之前一口气改了好几个参数，结果系统出问题，死活想不起来是哪个导致的，最后只能全部回滚重来。</p>
+<h2 id="WhiteSur-Mac-风格美化"><a href="#WhiteSur-Mac-风格美化" class="headerlink" title="WhiteSur Mac 风格美化"></a>WhiteSur Mac 风格美化</h2><p>选择 WhiteSur 主要是因为它的完成度比较高，安装起来也方便。</p>
+<h3 id="安装基础工具"><a href="#安装基础工具" class="headerlink" title="安装基础工具"></a>安装基础工具</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install gnome-tweaks gnome-shell-extensions gnome-shell-extension-manager -y</span><br><span class="line"><span class="built_in">sudo</span> apt install git sassc libglib2.0-dev-bin -y</span><br></pre></td></tr></table></figure>
 
-<h3 id="2-4-安装壁纸"><a href="#2-4-安装壁纸" class="headerlink" title="2.4 安装壁纸"></a>2.4 安装壁纸</h3><blockquote>
-<p>⚠️ <strong>注意</strong>: 仓库名是 <code>Whitesur-wallpapers</code>（复数），脚本名是 <code>install-wallpapers.sh</code></p>
-</blockquote>
+<p>这里 <code>gnome-tweaks</code> 是后面调主题和字体必备的工具，<code>sassc</code> 是编译主题需要的。</p>
+<h3 id="安装-WhiteSur-GTK-主题"><a href="#安装-WhiteSur-GTK-主题" class="headerlink" title="安装 WhiteSur GTK 主题"></a>安装 WhiteSur GTK 主题</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/vinceliuice/WhiteSur-gtk-theme.git --depth=1</span><br><span class="line"><span class="built_in">cd</span> WhiteSur-gtk-theme</span><br><span class="line">./install.sh</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装图标主题"><a href="#安装图标主题" class="headerlink" title="安装图标主题"></a>安装图标主题</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/vinceliuice/WhiteSur-icon-theme.git --depth=1</span><br><span class="line"><span class="built_in">cd</span> WhiteSur-icon-theme</span><br><span class="line">./install.sh -a</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装壁纸"><a href="#安装壁纸" class="headerlink" title="安装壁纸"></a>安装壁纸</h3><p>这一步有个小坑——仓库名是 <code>Whitesur-wallpapers</code>（复数），但安装脚本叫 <code>install-wallpapers.sh</code>。我第一次找的时候找了好半天：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/vinceliuice/WhiteSur-wallpapers.git --depth=1</span><br><span class="line"><span class="built_in">cd</span> WhiteSur-wallpapers</span><br><span class="line">./install-wallpapers.sh</span><br></pre></td></tr></table></figure>
 
-<h3 id="2-5-Tweaks-设置"><a href="#2-5-Tweaks-设置" class="headerlink" title="2.5 Tweaks 设置"></a>2.5 Tweaks 设置</h3><p>打开 <strong>Tweaks（优化）→ 外观</strong>:</p>
+<h3 id="Tweaks-设置"><a href="#Tweaks-设置" class="headerlink" title="Tweaks 设置"></a>Tweaks 设置</h3><p>装完之后打开 Tweaks（优化）→ 外观，把主题都选上：</p>
 <table>
 <thead>
 <tr>
 <th>设置项</th>
-<th>推荐值</th>
+<th>我用的值</th>
 </tr>
 </thead>
 <tbody><tr>
 <td>Applications</td>
-<td><code>WhiteSur-dark</code> 或 <code>WhiteSur-light</code></td>
+<td>WhiteSur-dark</td>
 </tr>
 <tr>
 <td>Shell</td>
-<td>需启用 User Themes 扩展后可选</td>
+<td>需要装 User Themes 扩展后才能选</td>
 </tr>
 <tr>
 <td>Icons</td>
-<td><code>WhiteSur</code> 或 <code>WhiteSur-dark</code></td>
+<td>WhiteSur</td>
 </tr>
 <tr>
 <td>Cursor</td>
-<td><code>WhiteSur-cursors</code> 或系统默认</td>
+<td>WhiteSur-cursors</td>
 </tr>
 <tr>
 <td>界面字体</td>
-<td>Noto Sans CJK &#x2F; 思源黑体</td>
+<td>Noto Sans CJK</td>
 </tr>
 <tr>
 <td>等宽字体</td>
-<td>Fira Code &#x2F; JetBrains Mono</td>
+<td>Fira Code</td>
 </tr>
 </tbody></table>
-<h3 id="2-6-关键-GNOME-扩展"><a href="#2-6-关键-GNOME-扩展" class="headerlink" title="2.6 关键 GNOME 扩展"></a>2.6 关键 GNOME 扩展</h3><p>通过 Extension Manager 安装以下扩展：</p>
+<h3 id="几个关键的-GNOME-扩展"><a href="#几个关键的-GNOME-扩展" class="headerlink" title="几个关键的 GNOME 扩展"></a>几个关键的 GNOME 扩展</h3><p>通过 Extension Manager 装这几个：</p>
 <ul>
-<li><strong>User Themes</strong>: 启用 Shell 主题切换</li>
-<li><strong>Dash to Dock</strong>: 将 Dock 移到底部，设置半透明、圆角效果</li>
-<li><strong>Blur My Shell</strong>: 顶栏和概览的毛玻璃效果</li>
+<li><strong>User Themes</strong>：不装这个，Shell 主题选项是灰色的</li>
+<li><strong>Dash to Dock</strong>：把 Dock 移到底部，加上半透明和圆角</li>
+<li><strong>Blur My Shell</strong>：顶栏和概览的毛玻璃效果，装上之后观感提升很明显</li>
 </ul>
-<h3 id="2-7-Mac-风格细节"><a href="#2-7-Mac-风格细节" class="headerlink" title="2.7 Mac 风格细节"></a>2.7 Mac 风格细节</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 窗口按钮移到左上角（红黄绿）</span></span><br><span class="line">gsettings <span class="built_in">set</span> org.gnome.desktop.wm.preferences button-layout <span class="string">&#x27;close,minimize,maximize:&#x27;</span></span><br></pre></td></tr></table></figure>
+<h3 id="把窗口按钮移到左上角"><a href="#把窗口按钮移到左上角" class="headerlink" title="把窗口按钮移到左上角"></a>把窗口按钮移到左上角</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gsettings <span class="built_in">set</span> org.gnome.desktop.wm.preferences button-layout <span class="string">&#x27;close,minimize,maximize:&#x27;</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="2-8-常见问题处理"><a href="#2-8-常见问题处理" class="headerlink" title="2.8 常见问题处理"></a>2.8 常见问题处理</h3><p><strong>VS Code 按钮仍在右上角</strong>: 在 VS Code 设置中搜索 <code>window.titleBarStyle</code>，改为 <code>native</code> 即可跟随系统标题栏。</p>
-<p><strong>Snap 应用不跟随主题</strong>: Snap 沙箱隔离导致无法读取系统主题，建议优先使用 <code>.deb</code> 或 Flatpak 版本。</p>
-<p><strong>Telegram 样式不统一</strong>: Telegram Desktop 是 Qt 应用，不走 GTK 主题体系，无法完全统一外观，建议接受差异。</p>
-<hr>
-<h2 id="三、中文字体安装"><a href="#三、中文字体安装" class="headerlink" title="三、中文字体安装"></a>三、中文字体安装</h2><p>Ubuntu 默认不带编程字体，手动安装后 VS Code 和终端体验会更好：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 包管理器安装（推荐先试）</span></span><br><span class="line"><span class="built_in">sudo</span> apt install fonts-firacode fonts-jetbrains-mono -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果源里没有，手动安装</span></span><br><span class="line"><span class="built_in">mkdir</span> -p ~/.local/share/fonts</span><br><span class="line"><span class="comment"># 将 .ttf 文件拷贝到上述目录</span></span><br><span class="line">fc-cache -f -v</span><br></pre></td></tr></table></figure>
+<p>这样就变成 Mac 那种”红黄绿”按钮布局了。</p>
+<h3 id="踩过的几个坑"><a href="#踩过的几个坑" class="headerlink" title="踩过的几个坑"></a>踩过的几个坑</h3><p><strong>VS Code 的窗口按钮还是在右上角。</strong> 一开始以为是主题没生效，后来发现 VS Code 默认用自定义标题栏，不走系统的。去设置里搜 <code>window.titleBarStyle</code>，改成 <code>native</code> 就好了。</p>
+<p><strong>Snap 应用不跟随主题。</strong> 这个比较头疼，Snap 的沙箱机制导致它读不到系统主题。我的解决办法是尽量用 .deb 或者 Flatpak 版本，能避免不少兼容问题。</p>
+<p><strong>Telegram 样式没法统一。</strong> Telegram Desktop 是 Qt 应用，不走 GTK 主题体系，所以它长什么样和系统没关系。这个暂时没什么好办法，只能接受差异。</p>
+<h2 id="中文字体和编程字体"><a href="#中文字体和编程字体" class="headerlink" title="中文字体和编程字体"></a>中文字体和编程字体</h2><p>Ubuntu 自带的字体说实话不太好看，尤其代码编辑的时候。推荐装一下编程字体：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install fonts-firacode fonts-jetbrains-mono -y</span><br></pre></td></tr></table></figure>
 
-<hr>
-<h2 id="四、Fcitx5-输入法配置"><a href="#四、Fcitx5-输入法配置" class="headerlink" title="四、Fcitx5 输入法配置"></a>四、Fcitx5 输入法配置</h2><h3 id="4-1-安装"><a href="#4-1-安装" class="headerlink" title="4.1 安装"></a>4.1 安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install fcitx5 fcitx5-chinese-addons fcitx5-config-qt fcitx5-frontend-gtk3 -y</span><br></pre></td></tr></table></figure>
+<p>如果 apt 源里没有的话，也可以手动装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p ~/.local/share/fonts</span><br><span class="line"><span class="comment"># 把 .ttf 文件拷到上面这个目录</span></span><br><span class="line">fc-cache -f -v</span><br></pre></td></tr></table></figure>
 
-<h3 id="4-2-环境变量配置"><a href="#4-2-环境变量配置" class="headerlink" title="4.2 环境变量配置"></a>4.2 环境变量配置</h3><p>这是最关键的一步，配置不正确会导致候选框位置异常。</p>
-<p>编辑 <code>~/.pam_environment</code>:</p>
+<h2 id="Fcitx5-输入法配置"><a href="#Fcitx5-输入法配置" class="headerlink" title="Fcitx5 输入法配置"></a>Fcitx5 输入法配置</h2><p>这个应该是整个配置过程中最麻烦的一步。Ubuntu 自带的 IBus 中文体验不太好，换成 Fcitx5 会好很多。</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install fcitx5 fcitx5-chinese-addons fcitx5-config-qt fcitx5-frontend-gtk3 -y</span><br></pre></td></tr></table></figure>
+
+<h3 id="环境变量配置（最关键的一步）"><a href="#环境变量配置（最关键的一步）" class="headerlink" title="环境变量配置（最关键的一步）"></a>环境变量配置（最关键的一步）</h3><p>环境变量配不对的话，候选框位置会飘到屏幕左上角，或者干脆不显示候选框。我在这上面折腾了好久。</p>
+<p>编辑 <code>~/.pam_environment</code>：</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GTK_IM_MODULE DEFAULT=fcitx</span><br><span class="line">QT_IM_MODULE  DEFAULT=fcitx</span><br><span class="line">XMODIFIERS    DEFAULT=@im=fcitx</span><br></pre></td></tr></table></figure>
 
-<p>编辑 <code>~/.xprofile</code>:</p>
+<p>编辑 <code>~/.xprofile</code>：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> GTK_IM_MODULE=fcitx</span><br><span class="line"><span class="built_in">export</span> QT_IM_MODULE=fcitx</span><br><span class="line"><span class="built_in">export</span> XMODIFIERS=@im=fcitx</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -x <span class="string">&quot;<span class="subst">$(command -v fcitx5)</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">    fcitx5 -d</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="4-3-验证配置"><a href="#4-3-验证配置" class="headerlink" title="4.3 验证配置"></a>4.3 验证配置</h3><p>修改后必须<strong>完整注销并重新登录</strong>，然后验证：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$XDG_SESSION_TYPE</span>    <span class="comment"># wayland</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$GTK_IM_MODULE</span>       <span class="comment"># fcitx</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$QT_IM_MODULE</span>        <span class="comment"># fcitx</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$XMODIFIERS</span>          <span class="comment"># @im=fcitx</span></span><br></pre></td></tr></table></figure>
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p>改完之后一定要<strong>完整注销再重新登录</strong>，不然不生效。登录后用这几个命令确认一下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$XDG_SESSION_TYPE</span>    <span class="comment"># 应该输出 wayland</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$GTK_IM_MODULE</span>       <span class="comment"># 应该输出 fcitx</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$QT_IM_MODULE</span>        <span class="comment"># 应该输出 fcitx</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$XMODIFIERS</span>          <span class="comment"># 应该输出 @im=fcitx</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="4-4-候选框位置问题排查"><a href="#4-4-候选框位置问题排查" class="headerlink" title="4.4 候选框位置问题排查"></a>4.4 候选框位置问题排查</h3><ul>
-<li>确认 <code>fcitx5-frontend-wayland</code> 等前端组件已安装</li>
-<li>在 <code>fcitx5-configtool</code> 中启用”跟随光标”</li>
-<li>临时切换默认主题排除皮肤兼容性问题</li>
-<li>Wayland 下部分 Snap 应用存在候选框偏移，属已知限制</li>
-</ul>
-<hr>
-<h2 id="五、快捷键优化建议"><a href="#五、快捷键优化建议" class="headerlink" title="五、快捷键优化建议"></a>五、快捷键优化建议</h2><p>不建议大规模修改默认快捷键，原因：</p>
+<h3 id="候选框位置不对的排查"><a href="#候选框位置不对的排查" class="headerlink" title="候选框位置不对的排查"></a>候选框位置不对的排查</h3><p>如果候选框飘到左上角，可以试试这几个：</p>
 <ol>
-<li>与 VS Code、终端等开发工具的内部快捷键容易冲突</li>
-<li>学习成本高，容易遗忘</li>
-<li>复制&#x2F;粘贴等高频操作的 <code>Ctrl</code> 系列在 Linux 生态中根深蒂固</li>
+<li>确认 <code>fcitx5-frontend-wayland</code> 装了</li>
+<li>在 fcitx5-configtool 里启用”跟随光标”</li>
+<li>临时把主题切回默认，排除是皮肤兼容性问题</li>
+<li>Wayland 下部分 Snap 应用的候选框偏移是个已知限制，目前没什么好办法</li>
 </ol>
-<p>推荐少量添加自定义快捷键：</p>
+<h2 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h2><p>我个人不太建议大规模改快捷键。原因有几个：一是容易和 VS Code、终端这些开发工具的快捷键冲突；二是改了之后容易忘；三是 Ctrl+C&#x2F;V 这种操作在 Linux 生态里根深蒂固，改了反而不适应。</p>
+<p>加几个最常用的就够了：</p>
 <table>
 <thead>
 <tr>
@@ -386,33 +388,30 @@
 </tr>
 </thead>
 <tbody><tr>
-<td><code>Super+T</code></td>
-<td><code>gnome-terminal</code></td>
+<td>Super+T</td>
+<td>gnome-terminal</td>
 <td>快速打开终端</td>
 </tr>
 <tr>
-<td><code>Super+E</code></td>
-<td><code>code</code></td>
+<td>Super+E</td>
+<td>code</td>
 <td>快速打开 VS Code</td>
 </tr>
 <tr>
-<td><code>Super+F</code></td>
-<td><code>nautilus</code></td>
+<td>Super+F</td>
+<td>nautilus</td>
 <td>快速打开文件管理器</td>
 </tr>
 </tbody></table>
-<p>Fcitx5 输入法切换建议设置为 <code>Ctrl+Space</code>，避免与系统快捷键冲突。</p>
-<hr>
-<h2 id="六、优化效果"><a href="#六、优化效果" class="headerlink" title="六、优化效果"></a>六、优化效果</h2><p><img src="/images/2026-04-18-ubuntu-24-desktop-optimization/Ubuntu_Mac%E9%A3%8E%E6%A0%BC%E4%BC%98%E5%8C%96.png"></p>
-<hr>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>经过以上配置，Ubuntu 24.04 的外观已经非常接近 macOS，同时保留了 Linux 的操作逻辑。几个核心要点：</p>
+<p>输入法切换设成 Ctrl+Space 就行，别和系统快捷键冲突。</p>
+<h2 id="最后的效果"><a href="#最后的效果" class="headerlink" title="最后的效果"></a>最后的效果</h2><p><img src="/images/2026-04-18-ubuntu-24-desktop-optimization/Ubuntu_Mac%E9%A3%8E%E6%A0%BC%E4%BC%98%E5%8C%96.png"></p>
+<p>整体下来，外观已经比较接近 macOS 了，但操作逻辑还是 Linux 那一套，用着顺手。总结一下几个容易踩坑的地方：</p>
 <ul>
-<li><strong>Snap 应用</strong>主题兼容性差，优先选 <code>.deb</code> 或 Flatpak</li>
-<li><strong>Fcitx5 环境变量</strong>必须正确配置，否则候选框位置异常</li>
-<li><strong>Qt 应用</strong>（如 Telegram）不走 GTK 主题，无法完全统一</li>
-<li><strong>一次只改一个变量</strong>，方便排查和回滚</li>
+<li>Snap 应用的主题兼容性确实差，能用 .deb 就用 .deb</li>
+<li>Fcitx5 的环境变量一定要配对，否则候选框位置会很痛苦</li>
+<li>Qt 应用（比如 Telegram）不走 GTK 主题，接受就好</li>
+<li>调优一次只改一个变量，不然出问题很难排查</li>
 </ul>
-<p>希望这篇实战记录对你有所帮助。</p>
 
     </div>
 
